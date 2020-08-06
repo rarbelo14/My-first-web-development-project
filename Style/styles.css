@@ -93,3 +93,59 @@ header{
 	left: 0;
 	position: relative;
 }
+
+.cover_image{
+	width: 100%;
+	height: 400px;
+	position: relative;
+	overflow: hidden; /*After the tranforming the scale, the background image will not go out of bounds.*/
+	/*We dodn't add the background-image here because the ::before will be a 15% opaque, thus .cover_image won't have ant background-image at all.*/	
+	background-position: center;
+	background-size: cover; /*Prevents the image from repeating itself if the screen is larger than the image.*/
+	background-repeat: none; /*We make sure the image doesn't get repeated.*/
+}
+
+.cover_image::before{ /*We created a ::before element (child element) to be able to put the background with position:absolute without losing the hover's transform:scale(1.2).*/
+	content:"";
+	width: 100%;
+	height: 100%;
+	position:absolute; /*It will not be within the normal flow of the page, so it will take the parent's window as a reference.*/
+	top:0;
+	right:0;
+	background:inherit; /*Collects all the parent's own properties with reference to the background*/
+	background-image: url(../Assets/playa-de-las-canteras-las-palmas-de-gran-canaria-beach-sand.jpg);
+	opacity: 0.85;
+	transition: 1s;
+}
+
+.cover_image:hover::before{
+	transform: scale(1.2);
+}
+
+.cover_image_info{
+	max-width: 900px;
+	height: 400px;
+	margin: auto;
+	position: relative;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column; /*Display:flex puts h1 and p in horizontal alignment, this makes them both stand vertically.*/
+	color: white;
+	cursor: default; /*The text cursor will not appear, just the standard one instead.*/
+}
+
+.cover_image_info h1{
+	font-size: 60px;
+	font-weight: bold; /*Equivalent to 700.*/
+	text-shadow: 0px 0px 20px black; /*Letters shading.*/
+	-webkit-text-stroke: 2px black; /*Letters border.*/
+	margin-bottom: 20px;
+}
+
+.cover_image_info p{
+	font-size: 30px;
+	font-weight: 550;
+	text-shadow: 0px 0px 20px black;
+	-webkit-text-stroke: 1.5px black;
+}
